@@ -6,10 +6,6 @@ import pymongo
 
 @main.route('/')
 def index():
-    my_db = pymongo.MongoClient(app.config['MONGO_URL'])
-    print(app.config['MONGO_URL'])
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
     
-
-    print(my_db)
-    my_db.admin.users.insert({'test':'test'})
     return render_template('index.html')

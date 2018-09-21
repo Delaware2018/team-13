@@ -16,9 +16,8 @@ app.debug = True
 manager = Manager(app)
 
 # for mongodb use
-app.config['MONGO_URL'] = ('mongodb://%s:%s@ds111063.mlab.com'
-             ':28310/cfg18_dev_db' % (app.config['DB_USER'],
-                                        app.config['DB_PASS']))
+app.config['MONGO_URL'] = 'mongodb://{0}:{1}@ds111063.mlab.com:11063/cfg18_dev_db'.format(app.config['DB_USER'],
+                                        app.config['DB_PASS'])
 
 
 def make_shell_context():
