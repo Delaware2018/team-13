@@ -2,7 +2,7 @@ $(document).ready(function(){
     $('#admin').on('submit', function(event){
         console.log($(this));
         let requestObj = {
-            'pnum': $('#pnum').val()
+            'pnum': $('#pnum').val(),
             'poll': false
             };
 
