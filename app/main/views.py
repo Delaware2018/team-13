@@ -57,3 +57,4 @@ def index():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     return render_template('settings.html')
+
