@@ -18,12 +18,6 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Goodwill_Industries_Logo.svg/200px-Goodwill_Industries_Logo.svg.png" style="height: 40px">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#faq">FAQ</a>
-                </li>
                 <li class="nav-item nav-item-right">
                     <a href="/logout">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -35,6 +29,32 @@
 
         <div class="container">
             <div class="row" style="height: auto;">
+                <div class="col-md-12 admin-pane user-list">
+                    <h2>Users</h2>
+                    <hr>
+                    <div class="user-fixed">
+                        <div class="fname-e user-list-entry">
+                            First Name
+                        </div><div class="lname-e user-list-entry">
+                            Last Name
+                        </div><div class="pnum-e user-list-entry">
+                            Phone #
+                        </div><div class="clothes-e user-list-entry">
+                            Clothes
+                        </div><div class="furniture-e user-list-entry">
+                            Furniture
+                        </div><div class="books-e user-list-entry">
+                            Books
+                        </div><div class="electronics-e user-list-entry">
+                            Electronics 
+                        </div><div class="other-e user-list-entry">
+                            Other
+                        </div><div class="avg-cost-e user-list-entry">
+                            Avg. Value
+                        </div>
+                    </div>
+                    {{ users|safe }}
+                </div>
                 <div class="col-md-12 admin-pane">
                     <h2>Add Donation</h2>
                     <hr>

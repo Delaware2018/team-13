@@ -324,8 +324,62 @@ def set_what_form():
 @login_required
 def admin():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+    all_users = my_db.users.find()
+
+    formatted_users = []
+    for user in all_users:
+        clothes_count, furniture_count, books_count, electronics_count, other_count = 0, 0, 0, 0, 0
+        cost_sum = 0
+        cost_count = 0
+        for donation in user['donations']:
+            if(donation['pollAnswers']['what']['clothes']):
+                clothes_count += 1
+            if(donation['pollAnswers']['what']['furniture']):
+                furniture_count += 1
+            if(donation['pollAnswers']['what']['books']):
+                books_count += 1
+            if(donation['pollAnswers']['what']['electronics']):
+                electronics_count += 1
+            if(donation['pollAnswers']['what']['other']):
+                other_count += 1
+
+            if(donation['pollAnswers']['value']):
+                cost_sum += float(donation['pollAnswers']['value'])
+
+            cost_count += 1
+
+        formatted_user = '''
+            <div class="user">
+                <div class="fname-e user-list-entry">
+                    {fname}
+                </div><div class="lname-e user-list-entry">
+                    {lname}
+                </div><div class="pnum-e user-list-entry">
+                    {pnum}
+                </div><div class="clothes-e user-list-entry">
+                    {clothes}
+                </div><div class="furniture-e user-list-entry">
+                    {furniture}
+                </div><div class="books-e user-list-entry">
+                    {books}
+                </div><div class="electronics-e user-list-entry">
+                    {electronics}
+                </div><div class="other-e user-list-entry">
+                    {other}
+                </div><div class="avg-cost-e user-list-entry">
+                    {avg_cost}
+                </div>
+            </div>
+            '''.format(fname=user['fname'], lname=user['lname'],
+                       pnum=user['pnum'], clothes=clothes_count,
+                       furniture=furniture_count, books=books_count,
+                       electronics=electronics_count, other=other_count,
+                       avg_cost=cost_sum/cost_count)
+        formatted_users.append(formatted_user)
+
     
-    return render_template('admin.html')
+    return render_template('admin.html', users=''.join(formatted_users))
 
 @main.route('/add_donation', methods=['POST'])
 def add_donation():

@@ -179,7 +179,7 @@ body, .row{
 }
 
 .transaction-history{
-    height: 400px;
+    height: 430px;
     width: 100%;
     background-color: white;
     border-radius: 10px;
@@ -331,4 +331,40 @@ body, .row{
 
 #add-gear, #redeem-gear{
     display: none;
+}
+
+.user-list{
+    height: 260px;
+    overflow-y: scroll;
+}
+
+.user{
+    border-bottom: 1px solid grey;
+}
+
+.user-fixed{
+    border-bottom: 1px solid black;
+}
+
+.user-list-entry{
+    display: inline-block;
+}
+
+.fname-e, .lname-e, .pnum-e{
+    width: 15%;
+    overflow-x: scroll;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    margin: 0 !important;
+    text-align: center;
+}
+
+.clothes-e, .furniture-e, .books-e, .electronics-e, .other-e, .avg-cost-e{
+    width: 8%;
+    margin: 0;
+    overflow-x: scroll;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    margin: 0 !important;
+    text-align: center;
 }
