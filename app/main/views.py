@@ -42,7 +42,7 @@ def check_user():
 
 
 
-@main.myroute('/home')
+@main.route('/home')
 def home():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
     
@@ -104,12 +104,6 @@ def faq():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     return render_template('FAQ.html')
-
-@main.route('/home')
-def home():
-    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
-
-    return render_template('home.html')
 
 @main.route('/resetPassword')
 def resetPass():
