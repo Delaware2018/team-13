@@ -348,6 +348,8 @@ def admin():
                 cost_sum += float(donation['pollAnswers']['value'])
 
             cost_count += 1
+        if(not(cost_count)):
+            cost_count = 1
 
         formatted_user = '''
             <div class="user">
