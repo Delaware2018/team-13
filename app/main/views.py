@@ -44,7 +44,7 @@ def check_user():
     if(hashed_password != user_exists['password']):
         abort(400)
 
-    if(len(user_exists['email']) > 11 and user_exists['email'][-12:] == "goodwill.org")
+    if(len(user_exists['email']) > 11 and user_exists['email'][-12:] == "goodwill.org"):
         redirect(url_for('.admin'))
 
     return redirect(url_for('.home'))
@@ -63,29 +63,34 @@ def add_points():
     if(not(user_exists)):
         abort(400)
 
-    if(!data['poll']):
-	id = str(uuid.uuid4())[:4])
-	user_exists['donations'].append({'timestamp': time.time(), 'id': id, 
-	    'pollAnswers': {'what': {'clothes': False, 'furniture': False, 'books': False, 'electronics': False, 'other': False}, 'value': 0}})
+    if(data['poll'] == False):
+        id = str(uuid.uuid4())[:4]
+        user_exists['donations'].append({'timestamp': time.time(), 'id': id, 
+            'pollAnswers': {'what': {'clothes': False, 'furniture': False, 'books': False, 'electronics': False, 'other': False}, 'value': 0}})
 
     new_points = 0
     if(user_exists['points'] + 10 >= 100):
-	new_points = 0
-	code = str(uuid.uuid4())[:4])
-	while(my_db.incentives.find_one({'code': code}):
-	    code = str(uuid.uuid4())[:4])
-	my_db.incentives.insert({'timestamp': time.time(), 'code': code, 'pnum': data['pnum'], 'desc': ""})
-	user_exists['incentives'].append(my_db.incentives.find_one({'pnum': data['pnum']}))
+        new_points = 0
+        code = str(uuid.uuid4())[:4]
+        while(my_db.incentives.find_one({'code': code})):
+            code = str(uuid.uuid4())[:4]
+        my_db.incentives.insert({'timestamp': time.time(), 'code': code, 'pnum': data['pnum'], 'desc': ""})
+        user_exists['incentives'].append(my_db.incentives.find_one({'pnum': data['pnum']}))
     else:
         new_points = user_exists['points']+10
 
-    my_db.users.update_one(
+    my_db.users.updateOne(
       { "pnum" : data["pnum"] },
-      { $set: { "points" : new_points } }
-    );
+      { set: { "points" : new_points } })
 
     return 
 
+@main.route('/admin')
+def admin():
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+    
+    return render_template('admin.html')	
+	
 @main.route('/home')
 def home():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
