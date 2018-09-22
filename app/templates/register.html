@@ -3,6 +3,12 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/bootstrap.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}">
+        <script
+          src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/register.js')}}">
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -28,23 +34,33 @@
                       Register
                         <form id="register">
                             <input type="text" placeholder="First Name"
-                                   id="fname"/>
+                                   id="fname" required="" />
                             <input type="text" placeholder="Last Name"
-                                   id="lname"/>
+                                   id="lname" required=""/>
                             <input type="text" placeholder="Phone Number"
-                                   id="pnum"/>
+                                   id="pnum" required=""/>
                             <input type="email" placeholder="Email Address"
-                                   id="email"/>
+                                   id="email" required=""/>
                             <input type="password" placeholder="Password"
-                                   id="pass"/>
+                                   id="pass" required=""/>
                             <input type="password"
                                    placeholder="Confirm Password"
-                                   id="cpass"/>
+                                   id="cpass" required=""/>
                             <button class="go">
                                 Register
                                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                             </button>
                         </form>
+                    </div>
+                    <div class="warning-block" id="acct-exists">
+                      An account with that email and/or phone number already
+                      exists
+                    </div>
+                    <div class="warning-block" id="bad-pass">
+                      Passwords do not match
+                    </div>
+                    <div class="success-block" id="acct-creat">
+                      Account Created
                     </div>
                     <div class="action-link-wrapper">
                         <a class="action-link" href="/">

@@ -1,7 +1,12 @@
+
 from flask import (abort, jsonify, g, session, render_template, redirect,
                    request, url_for)
 from manage import app
 from . import main
+
+import binascii
+import hashlib
+import uuid
 import pymongo
 
 @main.route('/')
@@ -15,6 +20,45 @@ def register():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     return render_template('register.html')
+
+@main.route('/add_user', methods=['POST'])
+def add_user():
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+    data = request.form
+
+
+    user_exists = my_db.users.find_one({'$or': [
+            {'email': data['email']},
+            {'pnum': data['pnum']}
+        ]})
+
+
+
+    if(user_exists):
+        abort(400)
+
+    if(data['pass'] != data['confirm_pass']):
+        abort(405)
+
+    salt = uuid.uuid4().hex
+    print(salt)
+
+    hashed_password = hashlib.sha512(data['pass'].encode('utf-8') + salt.encode('utf-8')).hexdigest()
+
+
+
+    my_db.users.insert({
+            'fname': data['firstName'],
+            'lname': data['lastName'],
+            'email': data['email'],
+            'pnum': data['pnum'],
+            'password': hashed_password,
+            'salt': salt
+        })
+
+    return jsonify({'status': 'complete'})
+
 
 @main.route('/forgot_password')
 def forgotPass():

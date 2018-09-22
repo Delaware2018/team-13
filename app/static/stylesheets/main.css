@@ -93,6 +93,30 @@ body, .row{
     outline: none;
 }
 
+.warning-block{
+    height: auto;
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    background-color: #e74c3c;
+    border: 3px solid white;
+    border-radius: 10px;
+    color: white;
+    display: none;
+}
+
+.success-block{
+    height: auto;
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    background-color: #2ecc71;
+    border: 3px solid white;
+    border-radius: 10px;
+    color: white;
+    display: none;
+}
+
 .action-link-wrapper{
     color: white !important;
     text-align: center;
