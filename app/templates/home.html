@@ -3,6 +3,12 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/bootstrap.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}">
+            <script
+              src="https://code.jquery.com/jquery-3.3.1.min.js"
+              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+              crossorigin="anonymous"></script>
+            <script src="{{ url_for('static', filename='js/home.js')}}">
+            </script>
     </head>
     <body>
         <div class="nav">
@@ -17,6 +23,12 @@
                 </li>
                 <li class="nav-item">
                     <a href="#faq">FAQ</a>
+                </li>
+                <li class="nav-item nav-item-right">
+                    <a href="/logout">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout
+                    </a> 
                 </li>
             </ul>
         </div>
@@ -40,62 +52,92 @@
                 </a>
             </div>
             <div class="col-md-10 center-block">
-                <div class="col-md-7 ipane">
+                <div class="col-md-12 ipane">
                     <div class="point-count">
-                        Point count will go here
+                        <h2 class="ul">Your Points</h2>
+                        <div class="progress-bar-outer">
+                            <div class="progress-bar">
+                                <div class="progress-bar-inner"></div>
+                            </div>
+                        </div>
+                        <h4>
+                            80 points collected so far,
+                            <br>
+                            20 points until your next reward!
+                        </h4>
+                        <span style="font-size: .8em; padding: 20px;
+                                     color: grey">
+                        You can get more points by completing more donations,
+                        filling out surveys about your donations, sharing your
+                        donations on social media, and filling out the 
+                        "My Profile" section.
+                        </span>
                     </div>
                     <div class="transaction-history">
-                        <ul>
-                            <li>List</li>
-                            <li>of</li>
-                            <li>Transactions</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4 ipane">
-                    <div class="social-feed">
-                        Social media feed will go here
-                    </div>
-                    <div class="events-feed">
-                        List of events will go here
-                    </div>
+                        <div class="incentive">
+                            <span class="incentive-trophy">
+                                <i class="fa fa-trophy" aria-hidden="true"></i>
+                                <span class="mt">-100</span>
+                            </span>
+                            <span class="donation-desc">
+                               Reward: 15% off next purchase.
+                               <b>Code: d4S2</b>
+                            </span>
+                        </div>
+                        <div class="donation">
+                            <span class="donation-check">
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                <span class="mt">+10</span>
+                            </span>
+                            <span class="donation-desc">
+                                Donation at: 11:41am, Tuesday, September 25th
+                            </span>
+                            <i class="fa fa-chevron-down donation-interact"   aria-hidden="true"></i>
+                            <div class="donation-interactions">
+                                <div class="col-md-5 sub-pane">
+                                    <h5>What did you donate?</h5>
+                                    <form id="donate-what"
+                                          style="text-align: left">
+                                        <input type="checkbox" value="clothes">
+                                        Clothes <br>
+                                        <input type="checkbox" value="furniture">
+                                        Furniture <br>
+                                        <input type="checkbox" value="books">
+                                        Books <br>
+                                        <input type="checkbox" value="electronics">
+                                        Electronics <br>
+                                        <input type="checkbox" value="other">
+                                        Other <br>
+                                        <br>
+                                        <button class="btn btn-success">
+                                            Submit
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-5 sub-pane"
+                                     style="text-align: left">
+                                    
+                                    <form id="estimate-val" style="display: inline-block;">
+                                        <h5 style="display: inline-block">
+                                            Estimated Value:
+                                        </h5>
+                                        <input type="text" placeholder="$$.$$"
+                                               required=""
+                                               style="width: 50px; display: inline-block;">
 
+                                        <button class="btn btn-success">
+                                            Submit
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </body>
     <footer>
-        <script>
-            var bar = new ProgressBar.Line(container, {
-            strokeWidth: 4,
-            easing: 'easeInOut',
-            duration: 1400,
-            color: '#FFEA82',
-            trailColor: '#eee',
-            trailWidth: 1,
-            svgStyle: {width: '100%', height: '100%'},
-            text: {
-            style: {
-              // Text color.
-              // Default: same as stroke color (options.color)
-              color: '#999',
-              position: 'absolute',
-              right: '0',
-              top: '30px',
-              padding: 0,
-              margin: 0,
-              transform: null
-            },
-            autoStyleContainer: false
-            },
-            from: {color: '#FFEA82'},
-            to: {color: '#ED6A5A'},
-            step: (state, bar) => {
-                bar.setText(Math.round(bar.value() * 100) + ' %');
-            }
-            });
 
-            bar.animate(1.0);
-        </script>
     </footer>
 </html>

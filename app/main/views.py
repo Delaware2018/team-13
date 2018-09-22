@@ -1,6 +1,7 @@
 
 from flask import (abort, jsonify, g, session, render_template, redirect,
                    request, url_for)
+from functools import wraps
 from manage import app
 from . import main
 
@@ -8,6 +9,31 @@ import binascii
 import hashlib
 import uuid
 import pymongo
+
+def login_required(f):
+    '''
+        Allows the passed function to only be executed when the user is
+        logged in
+    :return:
+        decorated function
+    '''
+
+
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+        if(not('user' in session)):
+            abort(404)
+        # get user db object
+        user_exists = my_db.users.find_one({'email':session['user']})
+
+        if(not(user_exists)):
+            abort(404)
+        # send to whatever page was requested
+        return f(*args, **kwargs)
+    return decorated_function
 
 @main.route('/')
 def index():
@@ -29,7 +55,6 @@ def check_user():
     print(data)
 
 
-    print(data['email'])
     user_exists = my_db.users.find_one({'email': data['email']})
 
     if(not(user_exists)):
@@ -37,15 +62,16 @@ def check_user():
 
     hashed_password = hashlib.sha512(data['pass'].encode('utf-8') + user_exists['salt'].encode('utf-8')).hexdigest()
 
-    print(hashed_password)
-    print(user_exists['password'])
 
     if(hashed_password != user_exists['password']):
         abort(400)
 
+    session['user'] = data['email']
+
     return redirect(url_for('.home'))
 
 @main.route('/home')
+@login_required
 def home():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
     
@@ -64,7 +90,6 @@ def add_user():
         ]})
 
 
-
     if(user_exists):
         abort(400)
 
@@ -72,7 +97,6 @@ def add_user():
         abort(405)
 
     salt = uuid.uuid4().hex
-    print(salt)
 
     hashed_password = hashlib.sha512(data['pass'].encode('utf-8') + salt.encode('utf-8')).hexdigest()
 
@@ -84,7 +108,10 @@ def add_user():
             'email': data['email'],
             'pnum': data['pnum'],
             'password': hashed_password,
-            'salt': salt
+            'salt': salt,
+            'points': 0,
+            'rewards': [],
+            'donations': []
         })
 
     return jsonify({'status': 'complete'})

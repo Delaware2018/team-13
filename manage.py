@@ -12,6 +12,7 @@ from pymongo import MongoClient
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 app.debug = True
+app.secret_key = os.urandom(32)
 
 manager = Manager(app)
 

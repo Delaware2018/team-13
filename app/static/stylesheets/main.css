@@ -13,7 +13,7 @@ html, body{
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.72);
     padding: 0px;
     background-color: white;
-    z-index:;
+    width: 100%;
 }
 
 .nav-list{
@@ -26,6 +26,12 @@ html, body{
     color: #0a559e !important;
     text-decoration: none;
     margin-right: 15px;
+}
+
+.nav-item-right{
+    position: absolute;
+    right: 0;
+    top: 7px;
 }
 
 body{
@@ -167,6 +173,7 @@ body, .row{
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
+    vertical-align: top;
 }
 
 .transaction-history{
@@ -174,6 +181,7 @@ body, .row{
     width: 100%;
     background-color: white;
     border-radius: 10px;
+    text-align: center;
 }
 
 .center-block{
@@ -199,4 +207,92 @@ body, .row{
 
 .mb{
     margin-right: 10px;
+}
+
+.progress-bar-outer{
+    width: 100% !important;
+    height: 30px;
+    text-align: center;
+}
+
+.progress-bar{
+    width: 80%;
+    height: 30px;
+    border-radius: 10px;
+    margin: 0 auto;
+    background-color: #bdc3c7 !important;
+    padding: 0px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.progress-bar-inner{
+    width: 80%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #2ecc71 !important;
+    padding: 0px;
+    position: absolute;
+    transition: .2s linear background-color;
+}
+
+.progress-bar-inner:hover{
+    background-color: #57D68D !important;
+    cursor: pointer;
+}
+
+.ul{
+    text-decoration: underline;
+}
+
+.incentive, .donation{
+    list-style: none;
+    width: 100% !important;
+    border-bottom: 1px solid grey;
+    padding: 5px;
+}
+
+.donation-check{
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+    color: #2ecc71;
+    margin-left: 40px;
+}
+
+.incentive-trophy{
+    position: absolute;
+    left: 0;
+    font-size: 1.1em;
+    color: #f1c40f;
+    margin-left: 40px;
+}
+
+.incentive-trophy .mt{
+    font-size: .6em;
+}
+
+.donation-check .mt{
+    font-size: .6em;
+}
+
+.donation-interact{
+    position: absolute;
+    right: 0;
+    margin-right: 40px;
+}
+
+.donation-interact:hover{
+    cursor: pointer;
+}
+
+
+.donation-interactions{
+    display: none;
+}
+.sub-pane{
+    display: inline-block;
+    height: 230px;
+    vertical-align: top;
 }
