@@ -3,6 +3,12 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/bootstrap.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}">
+		<script
+          src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/login.js')}}">
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -35,6 +41,10 @@
                             </button>
                         </form>
                     </div>
+					<div class="warning-block" id="acct-dne">
+                     Email/Password do not match
+                    </div>
+                    
                     <div class="action-link-wrapper">
                         <a class="action-link" href="/register">
                             Register <i class="fa fa-cogs" aria-hidden="true">
