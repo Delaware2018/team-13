@@ -16,11 +16,11 @@ def register():
 
     return render_template('register.html')
 
-@main.route('/forgotPassword')
+@main.route('/forgot_password')
 def forgotPass():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
-    return render_template('forgotPassword.html')
+    return render_template('forgot_password.html')
 
 @main.route('/about')
 def about():
