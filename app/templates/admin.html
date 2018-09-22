@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/bootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/font-awesome.min.css') }}">
+        <script
+          src="https://code.jquery.com/jquery-3.3.1.min.js"
+          integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+          crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/admin.js')}}">
+        </script>
+    </head>
+    <body>
+        <div class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="http://www.goodwill.org/">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Goodwill_Industries_Logo.svg/200px-Goodwill_Industries_Logo.svg.png" style="height: 40px">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#faq">FAQ</a>
+                </li>
+                <li class="nav-item nav-item-right">
+                    <a href="/logout">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Logout
+                    </a> 
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="row" style="height: auto;">
+                <div class="col-md-12 admin-pane">
+                    <h2>Add Donation</h2>
+                    <hr>
+                    <form id="add-donation">
+                        <input type="text"
+                               placeholder="Enter phone number e.g. 1234567890"
+                               required="" class="add-donation-inp"
+                               id="donation-pnum">
+                        <button class="btn btn-success">
+                            Add Donation
+                        </button>
+                        <i class="fa fa-cog fa-spin" id="add-gear"
+                           aria-hidden="true"></i>
+                    </form>
+                </div>
+                <div class="success-block" id="donate-success">
+                    Donation successfully logged
+                </div>
+
+                <div class="warning-block" id="acct-dne">
+                    Unable to log donation, account does not exist.
+                </div>
+
+            </div>
+            <br>
+            <div class="row" style="height: auto;">
+                <div class="col-md-12 admin-pane">
+                    <h2>Redeem Reward</h2>
+                    <hr>
+                    <form id="redeem-reward">
+                        <input type="text"
+                               placeholder="Enter phone number e.g. 1234567890"
+                               required="" class="add-donation-inp"
+                               id="redeem-pnum">
+                        <input type="text"
+                               placeholder="Enter reward code number"
+                               required="" class="verify-donation-inp"
+                               id="redeem-code">
+
+                        <button class="btn btn-success">
+                            Redeem
+                        </button>
+                        <i class="fa fa-spin fa-cog" aria-hidden="true"
+                           id="redeem-gear"></i>
+                    </form>
+                    
+                </div>
+                <div class="success-block" id="code-success">
+                    Redemption code is valid
+                </div>
+
+                <div class="warning-block" id="code-dne">
+                    Redemption code is invalid or has already been used
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

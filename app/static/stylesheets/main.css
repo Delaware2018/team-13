@@ -111,6 +111,7 @@ body, .row{
     border-radius: 10px;
     color: white;
     display: none;
+    margin-top: 10px;
 }
 
 .success-block{
@@ -122,6 +123,7 @@ body, .row{
     border: 3px solid white;
     border-radius: 10px;
     color: white;
+    margin-top: 10px;
     display: none;
 }
 
@@ -182,6 +184,8 @@ body, .row{
     background-color: white;
     border-radius: 10px;
     text-align: center;
+    overflow-y: scroll;
+    position: relative;
 }
 
 .center-block{
@@ -295,4 +299,36 @@ body, .row{
     display: inline-block;
     height: 230px;
     vertical-align: top;
+}
+
+.admin-pane{
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: white;
+    height: 150px;
+    width: 100%;
+}
+
+.add-donation-inp{
+    width: 60%;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.verify-donation-inp{
+    width: 20%;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.add-donation-inp:focus{
+    outline: none;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+#add-gear, #redeem-gear{
+    display: none;
 }

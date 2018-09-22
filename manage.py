@@ -9,11 +9,15 @@ from app import create_app
 from flask_script import Manager, Shell, Command, Option
 from pymongo import MongoClient
 
+from flask_moment import Moment
+
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 app.debug = True
 app.secret_key = os.urandom(32)
 
+moment = Moment(app)
 manager = Manager(app)
 
 # for mongodb use
