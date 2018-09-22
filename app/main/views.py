@@ -140,6 +140,17 @@ def home():
                 </div>
                 '''.format(desc=event['desc'], code=event['code'])
         else:
+            c1, c2, c3, c4, c5 = ('','','','','')
+            if(event['pollAnswers']['what']['clothes']):
+                c1 = 'checked'
+            if(event['pollAnswers']['what']['furniture']):
+                c2 = 'checked'
+            if(event['pollAnswers']['what']['books']):
+                c3 = 'checked'
+            if(event['pollAnswers']['what']['electronics']):
+                c4 = 'checked'
+            if(event['pollAnswers']['what']['other']):
+                c5 = 'checked'
             formatted_event = '''
                 <div class="donation">
                     <span class="donation-check">
@@ -155,15 +166,15 @@ def home():
                             <h5>What did you donate?</h5>
                             <form id="donate-what"
                                   style="text-align: left">
-                                <input type="checkbox" value="clothes">
+                                <input type="checkbox" value="clothes" {c1} />
                                 Clothes <br>
-                                <input type="checkbox" value="furniture">
+                                <input type="checkbox" value="furniture" {c2} />
                                 Furniture <br>
-                                <input type="checkbox" value="books">
+                                <input type="checkbox" value="books" {c3} />
                                 Books <br>
-                                <input type="checkbox" value="electronics">
+                                <input type="checkbox" value="electronics" {c4} />
                                 Electronics <br>
-                                <input type="checkbox" value="other">
+                                <input type="checkbox" value="other" {c5} />
                                 Other <br>
                                 <br>
                                 <input type="hidden" value="{i_id}">
@@ -180,9 +191,9 @@ def home():
                                     Estimated Value:
                                 </h5>
                                 <input type="text" placeholder="$$.$$"
-                                       required=""
-                                       style="width: 50px; display: inline-block;">
-                                <input type="hidden" value="{i_id}">
+                                       required="" value="{value}"
+                                       style="width: 50px; display: inline-block;" />
+                                <input type="hidden" value="{i_id}" />
 
                                 <button class="btn btn-success">
                                     Submit
@@ -191,13 +202,123 @@ def home():
                         </div>
                     </div>
                 </div>
-                '''.format(timestamp=moment.create(event['timestamp']).format('h:mm a, MMMM Do YYYY'), i_id=event['id'])
+                '''.format(timestamp=moment.create(event['timestamp']).format('h:mm a, MMMM Do YYYY'), i_id=event['id'], c1=c1, c2=c2,
+                    c3=c3, c4=c4, c5=c5, value=event['pollAnswers']['value'])
         formatted_events.append(formatted_event)
     formatted_events = ''.join(formatted_events)
 
 
     return render_template('home.html', score=user['score'],
                            formatted_events=formatted_events)
+
+@main.route('/value_form', methods=['POST'])
+@login_required
+def value_form():
+    reward_pool = ['15% off next purchase', '$5 gift card',
+                   '10% next purchase']
+
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+    data = request.form
+    print(data)
+    user = my_db.users.find_one({'email': session['user']})
+
+    if(not(user)):
+        abort(404)
+
+    new_score = user['score']
+    for donation in user['donations']:
+
+        if(donation['id'] == data['donation_id']):
+            prev_touched = not(donation['pollAnswers']['value'])
+            donation['pollAnswers']['value'] = data['value']
+
+            if(prev_touched):
+                new_score += 10
+
+            if(new_score >= 100):
+                new_reward = {
+                    'timestamp': datetime.datetime.now(),
+                    'code': str(uuid.uuid4())[:4],
+                    'desc': random.choice(reward_pool),
+                    'pnum': user['pnum'],
+                    'id': str(uuid.uuid4())
+                }
+
+                my_db.rewards.insert(new_reward)
+                user['rewards'].append(new_reward)
+                new_score = 0
+
+
+    my_db.users.update({'email': session['user']},
+                       {
+                        '$set': {
+                            'score': new_score,
+                            'donations': user['donations'],
+                            'rewards': user['rewards']
+                        }
+                       })
+    return jsonify({'status': 'updated'})
+
+
+
+@main.route('/what_form', methods=['POST'])
+@login_required
+def set_what_form():
+    reward_pool = ['15% off next purchase', '$5 gift card',
+                   '10% next purchase']
+
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+    data = request.form
+
+    user = my_db.users.find_one({'email': session['user']})
+
+    if(not(user)):
+        abort(404)
+
+    new_score = user['score']
+    for donation in user['donations']:
+        print((donation['id'], data['donation_id']))
+        if(donation['id'] == data['donation_id']):
+            prev_touched = (not('touched' in donation['pollAnswers']['what']) 
+                            or not(donation['pollAnswers']['what']['touched']))
+            donation['pollAnswers']['what'] = {
+                    'clothes': data['clothes']=='true',
+                    'furniture': data['furniture']=='true',
+                    'books': data['books']=='true',
+                    'electronics': data['electronics']=='true',
+                    'other': data['other']=='true',
+                    'touched': True
+                }
+            new_score = user['score']
+            if(prev_touched):
+                new_score += 10
+
+            if(new_score >= 100):
+                new_reward = {
+                    'timestamp': datetime.datetime.now(),
+                    'code': str(uuid.uuid4())[:4],
+                    'desc': random.choice(reward_pool),
+                    'pnum': user['pnum'],
+                    'id': str(uuid.uuid4())
+                }
+
+                my_db.rewards.insert(new_reward)
+                user['rewards'].append(new_reward)
+                new_score = 0
+
+
+    my_db.users.update({'email': session['user']},
+                       {
+                        '$set': {
+                            'score': new_score,
+                            'donations': user['donations'],
+                            'rewards': user['rewards']
+                        }
+                       })
+
+    return jsonify({'status': 'updated'})
 
 @main.route('/admin')
 @login_required
