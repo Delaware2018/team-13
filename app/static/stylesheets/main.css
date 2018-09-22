@@ -1,0 +1,26 @@
+html, body{
+    background-color: #0a559e !important;
+}
+
+.nav{
+    height: auto;
+    font-size: 1.5em;
+    color: #0a559e;
+    -webkit-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.72);
+    -moz-box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.72);
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.72);
+    padding: 0px;
+    background-color: white;
+}
+
+.nav-list{
+    margin-top: 5px;
+    float: top;
+}
+
+.nav-item, .nav-item a{
+    display: inline-block;
+    color: #0a559e !important;
+    text-decoration: none;
+    margin-right: 15px;
+}
