@@ -3,6 +3,7 @@ $(document).ready(function(){
         console.log($(this));
         let requestObj = {
             'pnum': $('#pnum').val()
+            'poll': false
             };
 
         $.ajax({
