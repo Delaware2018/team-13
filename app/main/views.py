@@ -12,7 +12,7 @@ import pymongo
 @main.route('/')
 def index():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
-    
+
     return render_template('index.html')
 
 @main.route('/register')
@@ -21,13 +21,15 @@ def register():
 
     return render_template('register.html')
 
-@main.route('/check_user', methods=['GET'])
+@main.route('/check_user', methods=['POST'])
 def check_user():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     data = request.form
+    print(data)
 
 
+    print(data['email'])
     user_exists = my_db.users.find_one({'email': data['email']})
 
     if(not(user_exists)):
@@ -35,12 +37,13 @@ def check_user():
 
     hashed_password = hashlib.sha512(data['pass'].encode('utf-8') + user_exists['salt'].encode('utf-8')).hexdigest()
 
-    if(not(hashed_password is user_exists['password'])):
+    print(hashed_password)
+    print(user_exists['password'])
+
+    if(hashed_password != user_exists['password']):
         abort(400)
 
     return redirect(url_for('.home'))
-
-
 
 @main.route('/home')
 def home():
