@@ -25,3 +25,81 @@ html, body{
     text-decoration: none;
     margin-right: 15px;
 }
+
+body{
+    overflow-y: hidden;
+}
+
+body, .row{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.input-block-parent{
+    position: absolute;
+    top: 40%; left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.input-block{
+    background-color: white;
+    border-radius: 5px;
+    height: auto;
+    
+    font-size: 1.4em;
+    text-align: center;
+}
+
+
+.input-block form input{
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid grey;
+    padding: 5px;
+}
+
+.input-block form input::placeholder{
+    color: lightgrey;
+}
+
+.input-block #login #email{
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+} 
+
+.input-block form .go{
+    width: 50%;
+    border: none;
+    color: grey;
+    margin-bottom: 0px;
+}
+
+.go{
+    color: lightgrey !important;
+    transition: .2s linear color;
+}
+
+.go:hover{
+    cursor: pointer;
+    color: grey !important;
+}
+
+.input-block form input{
+    display: block;
+}
+
+.input-block form input:focus{
+    outline: none;
+}
+
+.action-link-wrapper{
+    color: white !important;
+    text-align: center;
+}
+
+.action-link{
+    font-size: 1em;
+    color: white !important;
+    text-align: center;
+}
