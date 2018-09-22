@@ -4,6 +4,7 @@ html, body{
 }
 
 .nav{
+    z-index: 10 !important;
     height: auto;
     font-size: 1.5em;
     color: #0a559e;
@@ -12,6 +13,7 @@ html, body{
     box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.72);
     padding: 0px;
     background-color: white;
+    z-index:;
 }
 
 .nav-list{
@@ -126,4 +128,75 @@ body, .row{
     font-size: 1em;
     color: white !important;
     text-align: center;
+}
+
+.side-bar{
+    height: 100%;
+    background-color: #ecf0f1;
+    z-index: 1 !important;
+    border-top: 1px solid grey;
+    -webkit-box-shadow: 13px 0px 28px -10px rgba(0,0,0,0.75);
+    -moz-box-shadow: 13px 0px 28px -10px rgba(0,0,0,0.75);
+    box-shadow: 13px 0px 28px -10px rgba(0,0,0,0.75);
+}
+
+.side-bar-link{
+    color: grey !important;
+    display: block;
+    font-size: 1.2em;
+    margin: 5px;
+    transition: .2s linear color;
+}
+
+.side-bar-link:hover{
+    cursor: pointer;
+    color: black !important;
+}
+
+.ipane{
+    height: 100%;
+    display: inline-block;
+    padding: 0px !important;
+    vertical-align: top;
+}
+
+.point-count{
+    height: 200px;
+    width: 100%;
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.transaction-history{
+    height: 400px;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.center-block{
+    margin: 0 !important;
+    text-align: center;
+}
+
+.social-feed{
+    height: 300px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: white;
+}
+
+.events-feed{
+    height: 300px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: white;
+}
+
+.mb{
+    margin-right: 10px;
 }

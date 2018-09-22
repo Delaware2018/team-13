@@ -12,7 +12,7 @@ import pymongo
 @main.route('/')
 def index():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
-    
+
     return render_template('index.html')
 
 @main.route('/register')
@@ -20,6 +20,36 @@ def register():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     return render_template('register.html')
+
+@main.route('/check_user', methods=['POST'])
+def check_user():
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+
+    data = request.form
+    print(data)
+
+
+    print(data['email'])
+    user_exists = my_db.users.find_one({'email': data['email']})
+
+    if(not(user_exists)):
+        abort(400)
+
+    hashed_password = hashlib.sha512(data['pass'].encode('utf-8') + user_exists['salt'].encode('utf-8')).hexdigest()
+
+    print(hashed_password)
+    print(user_exists['password'])
+
+    if(hashed_password != user_exists['password']):
+        abort(400)
+
+    return redirect(url_for('.home'))
+
+@main.route('/home')
+def home():
+    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
+    
+    return render_template('home.html')
 
 @main.route('/add_user', methods=['POST'])
 def add_user():
@@ -77,12 +107,6 @@ def faq():
     my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
 
     return render_template('FAQ.html')
-
-@main.route('/home')
-def home():
-    my_db = pymongo.MongoClient(app.config['MONGO_URL']).cfg18_dev_db
-
-    return render_template('home.html')
 
 @main.route('/resetPassword')
 def resetPass():
